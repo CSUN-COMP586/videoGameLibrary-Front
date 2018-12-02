@@ -70,5 +70,11 @@ module.exports = {
     //     })
     //   }
     // }
-  }
+  },
+  /**
+   * Router authentication module coniguration
+   */
+  // router: {
+  //   middleware: 'router-auth'
+  // }
 }
