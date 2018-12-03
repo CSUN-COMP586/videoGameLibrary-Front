@@ -7,16 +7,18 @@
     <v-text-field label="Date Of Birth" v-model="dateOfBirth"></v-text-field>
     <v-text-field label="E-mail Address" v-model="email"></v-text-field>
     <v-text-field label="Password" v-model="password"></v-text-field>
-    <v-btn @click.native="formValidation">Submit</v-btn>
+    <v-btn @click.native="handleSubmit">Submit</v-btn>
   </v-container>
 </template>
 
 <script>
-  import moment from 'moment'
+  import moment from 'moment'  
+  import { auth } from '@/services/fireinit'
 
   export default {
     name: 'Register',
     data: () => ({
+      uid: 0,
       username: '',
       firstName: '',
       lastName: '',
@@ -24,10 +26,20 @@
       email: '',
       password: '',
       formattedDate: '',
-      registrationResponse: ''
+      registrationResponse: '',
     }),
-    methods: {
-      async submitRegistration() {
+    methods: {      
+      handleSubmit() {
+        auth.createUserWithEmailAndPassword(this.email, this.password).then(res => { // handles registration on firebase         
+          this.uid = res['user']['uid']
+          console.log(this.uid)
+          if (this.uid) {                 // if firebase returned a uid, validate form and register on server as well
+            this.handleFormValidation()
+            this.handleApiRegistration()
+          }          
+        }).catch(res => {console.log(res)})        
+      },
+      async handleApiRegistration() {
         await this.$axios ({
           method: 'post',
           url: 'http://localhost:8080/account/register',
@@ -42,16 +54,16 @@
           } 
         }).then(res => {
           this.registrationResponse = res.data;
-          console.log(this.registrationResponse)
+          if (this.registrationResponse['status'] == true) {
+            this.$router.push('/home/login')
+          }
         }).catch(err => {
           console.log(err);
         })
       },
-      formValidation() {
+      handleFormValidation() {  // handles form validations
         this.formattedDate = moment(this.dateOfBirth).format('YYYY-MM-DD')        
-
-        this.submitRegistration()
-      }
-    }
+      }      
+    } 
   };
 </script>
