@@ -15,18 +15,18 @@ import { auth } from '@/services/fireinit'
     data: () => ({
       email: '',
       password: '',
-      idToken: '',
+      idToken: '',      
       loginResponse: ''
     }),
     methods: {            
       handleSubmit() {
         auth.signInWithEmailAndPassword(this.email, this.password).then(res => { // sign in to firebase
-          this.getIdToken()
+          this.getIdToken()                 
         }).catch(err => {console.log(err)})
       },
       getIdToken() {
         auth.currentUser.getIdToken(true).then(res => { // get id token
-          this.idToken = res
+          this.idToken = res          
           this.handleApiLogin()
         }).catch(err => {console.log(err)})
       },
@@ -39,9 +39,9 @@ import { auth } from '@/services/fireinit'
             'Authorization': 'Bearer ' + this.idToken
             },
           data: {            
-            password: this.password,            
+            password: this.password            
           }
-        }).then(res => {          
+        }).then(res => {              
           this.loginResponse = res.data          
           if (this.loginResponse['message'] == true) {
             this.$router.push('/u/account/collection')
