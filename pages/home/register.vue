@@ -18,7 +18,7 @@
   export default {
     name: 'Register',
     data: () => ({
-      uid: 0,
+      uid: '',
       username: '',
       firstName: '',
       lastName: '',
@@ -31,13 +31,12 @@
     methods: {      
       handleSubmit() {
         auth.createUserWithEmailAndPassword(this.email, this.password).then(res => { // handles registration on firebase         
-          this.uid = res['user']['uid']
-          console.log(this.uid)
+          this.uid = res['user']['uid']          
           if (this.uid) {                 // if firebase returned a uid, validate form and register on server as well
             this.handleFormValidation()
             this.handleApiRegistration()
           }          
-        }).catch(res => {console.log(res)})        
+        }).catch(err => {console.log(err)})        
       },
       async handleApiRegistration() {
         await this.$axios ({
@@ -45,6 +44,7 @@
           url: 'http://localhost:8080/account/register',
           headers: {'Content-Type': 'application/json'},
           data: {
+            uid: this.uid,
             username: this.username,
             firstname: this.firstName,
             lastname: this.lastName,
@@ -53,12 +53,12 @@
             password: this.password            
           } 
         }).then(res => {
-          this.registrationResponse = res.data;
+          this.registrationResponse = res.data
           if (this.registrationResponse['status'] == true) {
             this.$router.push('/home/login')
           }
         }).catch(err => {
-          console.log(err);
+          console.log(err)
         })
       },
       handleFormValidation() {  // handles form validations
