@@ -25,12 +25,14 @@
       dateOfBirth: '',
       email: '',
       password: '',
+      refreshToken: '',
       formattedDate: '',
       registrationResponse: '',
     }),
     methods: {      
       handleSubmit() {
         auth.createUserWithEmailAndPassword(this.email, this.password).then(res => { // handles registration on firebase         
+          this.refreshToken = res['user']['refreshToken']
           this.uid = res['user']['uid']          
           if (this.uid) {                 // if firebase returned a uid, validate form and register on server as well
             this.handleFormValidation()
@@ -50,9 +52,10 @@
             lastname: this.lastName,
             dateofbirth: this.formattedDate,
             email: this.email,
-            password: this.password            
+            password: this.password,
+            refreshtoken: this.refreshToken
           } 
-        }).then(res => {
+        }).then(res => {          
           this.registrationResponse = res.data
           if (this.registrationResponse['status'] == true) {
             this.$router.push('/home/login')
