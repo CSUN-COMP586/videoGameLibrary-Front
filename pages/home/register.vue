@@ -35,7 +35,7 @@
       }
     },
     watch: {
-      user (value) {
+      token (value) {
         if (value) {
           this.$router.push('/home/login')
         }
@@ -54,7 +54,7 @@
           'email': this.email,
           'password': this.password,
           'refreshtoken': ''
-        })
+        })                
       },
       handleFormValidation() {
         this.dateOfBirth = moment(this.dateOfBirth).format('YYYY-MM-DD')    
