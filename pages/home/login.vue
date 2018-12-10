@@ -14,40 +14,32 @@ import { auth } from '@/services/fireinit'
     name: 'Login',
     data: () => ({
       email: '',
-      password: '',
-      idToken: '',      
-      loginResponse: ''
+      password: '',            
     }),
-    methods: {            
-      handleSubmit() {
-        auth.signInWithEmailAndPassword(this.email, this.password).then(res => { // sign in to firebase
-          this.getIdToken()                 
-        }).catch(err => {console.log(err)})
-      },
-      getIdToken() {
-        auth.currentUser.getIdToken(true).then(res => { // get id token
-          this.idToken = res          
-          this.handleApiLogin()
-        }).catch(err => {console.log(err)})
-      },
-      handleApiLogin() {
-        this.$axios ({
-          method: 'post',
-          url: 'http://localhost:8080/account/login',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + this.idToken
-            },
-          data: {            
-            password: this.password            
-          }
-        }).then(res => {              
-          this.loginResponse = res.data          
-          if (this.loginResponse['message'] == true) {
-            this.$router.push('/u/account/collection')
-          }
-        }).catch(err => {
-          console.log(err)
+    computed: {
+      user () {
+        return this.$store.getters.activeUser
+      }
+    },
+    watch: {
+      user (value) {
+        if (value) {
+          this.$router.push('/u/collection')
+        }
+      }
+    },
+    methods: {
+      async handleSubmit() {
+        await this.$store.dispatch('loginToFirebaseAndServer', {
+          'email': this.email,
+          'password': this.password
+        })
+        .then(() => {
+          this.email = ''
+          this.password = ''
+        })
+        .catch(err => {
+          console.log('Error logging in.', err)
         })
       }
     }

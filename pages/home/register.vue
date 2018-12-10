@@ -26,18 +26,15 @@
       password: '',
       refreshToken: ''            
     }),
-    computed: {
-      user () {
-        return this.$store.getters.activeUser
-      },
+    computed: {      
       token () {
         return this.$store.getters.authToken
       }
     },
     watch: {
-      token (value) {
-        if (value) {
-          this.$router.push('/home/login')
+      token (value) {        
+        if (value) {          
+          this.$router.push('/home/landing')
         }
       }
     },
@@ -54,7 +51,8 @@
           'email': this.email,
           'password': this.password,
           'refreshtoken': ''
-        })                
+        })        
+        .catch(err => {console.log('Error in submitting registration.', err)})          
       },
       handleFormValidation() {
         this.dateOfBirth = moment(this.dateOfBirth).format('YYYY-MM-DD')    
