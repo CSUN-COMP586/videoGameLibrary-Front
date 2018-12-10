@@ -9,7 +9,7 @@ const vuexLocalStorage = new VuexPersist({
   key: 'vuex',
   storage: window.localStorage,
   reducer: state => ({
-    tokenStorage: state.token
+    tokenStorage: ({token: state.token})
   })
 })
 
@@ -27,6 +27,9 @@ const store = () => new Vuex.Store({
     },
     authToken: (state) => {
       return state.token
+    },
+    getTokenStorage: (state) => {
+      return state.tokenStorage
     }
   },
   mutations: {

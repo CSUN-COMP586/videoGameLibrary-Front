@@ -67,8 +67,7 @@
     methods: {
       async handleLogout() {
         await this.$store.dispatch('logout')
-        .then(res => {
-          console.log(res)
+        .then(() => {          
           this.$router.push('/home/login')
           })
         .catch(err => {console.log('error logging out.', res)})
