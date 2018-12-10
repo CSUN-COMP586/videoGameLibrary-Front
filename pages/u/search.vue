@@ -24,30 +24,42 @@
 </template>
 
 <script>
+  import store from '@/store'
+
   export default {
     name: 'Home',
     data: () => ({
       searchQuery: '',
       cleanedQuery: '',
-      searchResults: ''
-    }),
+      searchResults: '',
+      token: null
+    }),    
     methods: {
       async searchForGame() {  // search for a video game using IGDB api
         await this.$axios ({
           method: 'get',
           url: 'http://localhost:8080/search/game/' + this.cleanedQuery,  // testing
-          headers: {'Content-Type': 'application/json'}
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.token
+            }
         }).then(res => {
-          this.searchResults = res.data;          
+          this.searchResults = res.data;                    
         }).catch(err => {
           console.log(err);
         })
       },
-      onSearch() {  // check for empty query and clean query and call search endpoint
-        if (this.searchQuery == '') {return;} 
+      onSearch() {  // check for empty query and clean query and call search endpoint 
+        if (this.$store.getters.authToken) {
+          this.token = this.$store.getters.authToken          
+        }
+        else {
+          this.token = this.$store.getters.getTokenStorage          
+        }        
+        if (this.searchQuery == '') {return} 
         else {
           this.cleanedQuery = this.searchQuery.replace(/[^A-Z0-9]+/ig, '+')                
-          this.searchForGame();
+          this.searchForGame()
         }
       }      
     }
