@@ -1,11 +1,10 @@
-export default function({ store, redirect, route }) {
-  store.state.user != null && route.name == 'login' ? redirect('/u/account/collection') : ''
-  store.state.user == null && isAdminRoute(route) ? redirect('/home/login') : ''  
-  console.log(store.state.user)
+export default function({ store, redirect, route }) {  
+  store.state.user != null && route.path == '/home/login' ? redirect('/u/collection') : console.log(route.path)
+  store.state.user == null && isAuthRoute(route) ? redirect('/home/login') : console.log(route.path)
 }
 
-function isAdminRoute(route) {
-  if (route.matched.some(record => record.path == '/admin')) {
+function isAuthRoute(route) {
+  if (route.matched.some(record => record.path === '/u/')) {
     return true
   }
 }

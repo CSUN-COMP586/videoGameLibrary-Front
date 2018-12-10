@@ -35,7 +35,8 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '@/plugins/vuetify'
+    '@/plugins/vuetify',
+    '@/plugins/fireauth'
   ],
 
   /*
@@ -55,7 +56,7 @@ module.exports = {
   /*
   ** Build configuration
   */
-  build: {
+  // build: {
     /*
     ** You can extend webpack config here
     */
@@ -70,11 +71,11 @@ module.exports = {
     //     })
     //   }
     // }
-  },
+  // },
   /**
    * Router authentication module coniguration
    */
-  // router: {
-  //   middleware: 'router-auth'
-  // }
+  router: {
+    middleware: 'router-auth'
+  }
 }
