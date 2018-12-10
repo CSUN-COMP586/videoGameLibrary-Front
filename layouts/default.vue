@@ -24,58 +24,20 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
+
     <v-toolbar
       :clipped-left="clipped"
       fixed
       app
     >
       <v-toolbar-side-icon @click="drawer = !drawer" />
-      <v-btn
-        icon
-        @click.stop="miniVariant = !miniVariant"
-      >
-        <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'" />
-      </v-btn>
-      <v-btn
-        icon
-        @click.stop="clipped = !clipped"
-      >
-        <v-icon>web</v-icon>
-      </v-btn>
-      <v-btn
-        icon
-        @click.stop="fixed = !fixed"
-      >
-        <v-icon>remove</v-icon>
-      </v-btn>
-      <v-toolbar-title v-text="title"/>
-      <v-btn
-        icon
-        @click.stop="rightDrawer = !rightDrawer"
-      >
-        <v-icon>menu</v-icon>
-      </v-btn>
-    </v-toolbar>
+      <v-btn @click.native="handleLogout">Logout</v-btn>
+    </v-toolbar>    
+
     <v-content>
-      <v-container>
-        <nuxt />
-      </v-container>
+      <nuxt-child />
     </v-content>
-    <v-navigation-drawer
-      :right="right"
-      v-model="rightDrawer"
-      temporary
-      fixed
-    >
-      <v-list>
-        <v-list-tile @click.native="right = !right">
-          <v-list-tile-action>
-            <v-icon light>compare_arrows</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-title>Switch drawer (click me)</v-list-tile-title>
-        </v-list-tile>
-      </v-list>
-    </v-navigation-drawer>
+
     <v-footer
       :fixed="fixed"
       app
@@ -100,6 +62,16 @@
         right: true,
         rightDrawer: false,
         title: 'Vuetify.js'
+      }
+    },
+    methods: {
+      async handleLogout() {
+        await this.$store.dispatch('logout')
+        .then(res => {
+          console.log(res)
+          this.$router.push('/home/login')
+          })
+        .catch(err => {console.log('error logging out.', res)})
       }
     }
   }
