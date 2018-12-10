@@ -12,8 +12,7 @@
 </template>
 
 <script>
-  import moment from 'moment'  
-  import { auth } from '@/services/fireinit'
+  import moment from 'moment'    
 
   export default {
     name: 'Register',
@@ -25,45 +24,39 @@
       dateOfBirth: '',
       email: '',
       password: '',
-      formattedDate: '',
-      registrationResponse: '',
+      refreshToken: ''            
     }),
-    methods: {      
-      handleSubmit() {
-        auth.createUserWithEmailAndPassword(this.email, this.password).then(res => { // handles registration on firebase         
-          this.uid = res['user']['uid']          
-          if (this.uid) {                 // if firebase returned a uid, validate form and register on server as well
-            this.handleFormValidation()
-            this.handleApiRegistration()
-          }          
-        }).catch(err => {console.log(err)})        
+    computed: {      
+      token () {
+        return this.$store.getters.authToken
+      }
+    },
+    watch: {
+      token (value) {        
+        if (value) {          
+          this.$router.push('/home/landing')
+        }
+      }
+    },
+    methods: {
+      async handleSubmit() {
+        this.handleFormValidation()
+
+        await this.$store.dispatch('registerOnFirebaseAndServer', {
+          'uid': '',
+          'username': this.username,
+          'firstname': this.firstName,
+          'lastname': this.lastName,
+          'dateofbirth': this.dateOfBirth,
+          'email': this.email,
+          'password': this.password,
+          'refreshtoken': ''
+        })        
+        .catch(err => {console.log('Error in submitting registration.', err)})          
       },
-      async handleApiRegistration() {
-        await this.$axios ({
-          method: 'post',
-          url: 'http://localhost:8080/account/register',
-          headers: {'Content-Type': 'application/json'},
-          data: {
-            uid: this.uid,
-            username: this.username,
-            firstname: this.firstName,
-            lastname: this.lastName,
-            dateofbirth: this.formattedDate,
-            email: this.email,
-            password: this.password            
-          } 
-        }).then(res => {
-          this.registrationResponse = res.data
-          if (this.registrationResponse['status'] == true) {
-            this.$router.push('/home/login')
-          }
-        }).catch(err => {
-          console.log(err)
-        })
-      },
-      handleFormValidation() {  // handles form validations
-        this.formattedDate = moment(this.dateOfBirth).format('YYYY-MM-DD')        
-      }      
-    } 
+      handleFormValidation() {
+        this.dateOfBirth = moment(this.dateOfBirth).format('YYYY-MM-DD')    
+      }
+    }    
   };
 </script>
