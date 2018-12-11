@@ -8,9 +8,10 @@ import { auth } from '@/services/fireinit'
 const vuexLocalStorage = new VuexPersist({
   key: 'vuex',
   storage: window.localStorage,
-  reducer: state => ({
-    tokenStorage: ({token: state.token})
-  })
+  // reducer: state => ({
+  //   tokenStorage: ({token: state.token})
+  // })
+  reducer: (state) => ({ token: state.token})
 })
 
 const store = () => new Vuex.Store({

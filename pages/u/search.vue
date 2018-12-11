@@ -43,7 +43,7 @@
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + this.token
             }
-        }).then(res => {
+        }).then(res => {          
           this.searchResults = res.data;                    
         }).catch(err => {
           console.log(err);
@@ -53,9 +53,9 @@
         if (this.$store.getters.authToken) {
           this.token = this.$store.getters.authToken          
         }
-        else {
-          this.token = this.$store.getters.getTokenStorage          
-        }        
+        // else {
+        //   // for refresher token
+        // }        
         if (this.searchQuery == '') {return} 
         else {
           this.cleanedQuery = this.searchQuery.replace(/[^A-Z0-9]+/ig, '+')                
