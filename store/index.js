@@ -7,10 +7,7 @@ import { auth } from '@/services/fireinit'
 // declare vuex-persist plugin
 const vuexLocalStorage = new VuexPersist({
   key: 'vuex',
-  storage: window.localStorage,
-  // reducer: state => ({
-  //   tokenStorage: ({token: state.token})
-  // })
+  storage: window.localStorage,  
   reducer: (state) => ({ token: state.token})
 })
 
@@ -28,10 +25,7 @@ const store = () => new Vuex.Store({
     },
     authToken: (state) => {
       return state.token
-    },
-    getTokenStorage: (state) => {
-      return state.tokenStorage
-    }
+    },    
   },
   mutations: {
     setUser (state, payload) {
@@ -48,11 +42,11 @@ const store = () => new Vuex.Store({
           registration.uid = res['user']['uid']        // get the uid and refresh token from firebase
           registration.refreshtoken = res['user']['refreshToken'] 
 
-          commit('setAuthToken', '1');                // set value to non-empty for routing            
+          commit('setAuthToken', '1')                  // set value to non-empty for routing          
         })
         .then(() => {
           dispatch('registerOnServer', registration)  // call api to register on server           
-        })
+        })        
     },
     registerOnServer ({commit}, registration) {
       this.$axios({
@@ -97,8 +91,7 @@ const store = () => new Vuex.Store({
       auth.signOut()
         .then(() => {
           commit('setUser', null)
-          commit('setAuthToken', null)
-          // localStorage.removeItem('token')
+          commit('setAuthToken', null)          
         })        
     }
   }

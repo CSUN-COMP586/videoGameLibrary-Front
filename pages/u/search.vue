@@ -15,8 +15,21 @@
         </v-card>
         
         <v-card>
-          <v-card-title>Test Results</v-card-title>
-          <v-card-text>{{ searchResults }}</v-card-text>
+          <v-card-title>Results</v-card-title>
+          <v-list>
+            <v-list-tile
+              v-for="result in searchResults"
+              :key="result.id"              
+            >              
+              <!-- Custome component to handle adding the game to the users collection -->
+              <search-add                 
+                :id="result.id"
+                :name="result.name"
+                :cover="result.cover"
+                :summary="result.summary"
+              ></search-add>         
+            </v-list-tile>
+          </v-list>
         </v-card>
       </v-flex>
     </v-layout>
@@ -24,7 +37,8 @@
 </template>
 
 <script>
-  import store from '@/store'
+  import store from '@/store'    
+  import searchAddComponent from '@/components/searchAddComponent'
 
   export default {
     name: 'Home',
@@ -32,8 +46,11 @@
       searchQuery: '',
       cleanedQuery: '',
       searchResults: '',
-      token: null
-    }),    
+      token: null,                  
+    }),                
+    components: {
+      'search-add': searchAddComponent
+    },
     methods: {
       async searchForGame() {  // search for a video game using IGDB api
         await this.$axios ({
@@ -44,7 +61,7 @@
             'Authorization': 'Bearer ' + this.token
             }
         }).then(res => {          
-          this.searchResults = res.data;                    
+          this.searchResults = res.data          
         }).catch(err => {
           console.log(err);
         })

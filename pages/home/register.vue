@@ -52,7 +52,7 @@
           'password': this.password,
           'refreshtoken': ''
         })        
-        .catch(err => {console.log('Error in submitting registration.', err)})          
+        .catch(err => {console.log('Error in submitting registration.', err)})
       },
       handleFormValidation() {
         this.dateOfBirth = moment(this.dateOfBirth).format('YYYY-MM-DD')    
