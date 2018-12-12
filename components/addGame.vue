@@ -58,7 +58,7 @@
   }
 </script>
 
-<style scoped>
+<style>
   .test {
     width: 100%
   }
