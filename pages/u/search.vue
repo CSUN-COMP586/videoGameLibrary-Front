@@ -21,13 +21,13 @@
               v-for="result in searchResults"
               :key="result.id"              
             >              
-              <!-- Custome component to handle adding the game to the users collection -->
-              <search-add                 
+              <!-- Custom component to handle adding the game to the users collection -->
+              <add-game                
                 :id="result.id"
                 :name="result.name"
                 :cover="result.cover"
-                :summary="result.summary"
-              ></search-add>         
+                :summary="result.summary"              
+              ></add-game>         
             </v-list-tile>
           </v-list>
         </v-card>
@@ -38,7 +38,7 @@
 
 <script>
   import store from '@/store'    
-  import searchAddComponent from '@/components/searchAddComponent'
+  import addGame from '@/components/addGame'
 
   export default {
     name: 'Home',
@@ -49,7 +49,7 @@
       token: null,                  
     }),                
     components: {
-      'search-add': searchAddComponent
+      'add-game': addGame
     },
     methods: {
       async searchForGame() {  // search for a video game using IGDB api
