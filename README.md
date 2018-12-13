@@ -2,6 +2,12 @@
 
 > Object Oriented Software Development Class Project.
 
+1.  Git clone this repository and run npm install.
+2.  The project uses Nuxt.js to scaffold, handle SPA, and handle routing
+3.  Axios handles the API consumptions
+4.  Firebase handles the authentication
+5.  Vuex handles the state management for authentication
+
 ## Build Setup
 
 ``` bash
