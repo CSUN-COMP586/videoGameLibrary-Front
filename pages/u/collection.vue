@@ -68,8 +68,7 @@
           }
         })
         .then(res => {
-          this.games = res.data.data
-          console.log(res.data.data[0].ImageURL)
+          this.games = res.data.data          
         })
         .catch(err => {
           console.log('Error getting game collection: ', err)

@@ -34,7 +34,7 @@
     watch: {
       token (value) {        
         if (value) {          
-          this.$router.push('/home/landing')
+          this.$router.push('/')
         }
       }
     },
