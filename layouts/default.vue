@@ -1,70 +1,72 @@
 <template>
-  <v-app dark>
-    <v-navigation-drawer
-      :mini-variant="miniVariant"
-      :clipped="clipped"
-      v-model="drawer"
+  <v-app dark>    
+    <v-toolbar      
       fixed
       app
-    >
-      <v-list>
-        <v-list-tile
-          v-for="(item, i) in items"
-          :to="item.to"
-          :key="i"
-          router
-          exact
-        >
-          <v-list-tile-action>
-            <v-icon v-html="item.icon" />
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title v-text="item.title" />
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list>
-    </v-navigation-drawer>
-
-    <v-toolbar
-      :clipped-left="clipped"
-      fixed
-      app
-    >
-      <v-toolbar-side-icon @click="drawer = !drawer" />
-      <v-btn @click.native="handleLogout">Logout</v-btn>
+      flat
+    > 
+      <v-btn small flat @click.native="toLandingPage" color="teal accent-4">Landing</v-btn>
+      <v-btn small flat @click.native="toCollectionPage" color="teal accent-4">Collection</v-btn>
+      <v-btn small flat @click.native="toSearchPage" color="teal accent-4">Search</v-btn>
+      <v-spacer></v-spacer>
+      <v-btn small flat @click.native="toRegisterPage" color="teal accent-4">Register</v-btn>
+      <v-btn small flat v-if="value" @click.native="toLoginPage" color="teal accent-4">Login</v-btn>   
+      <v-btn small flat @click.native="handleLogout" color="teal accent-4">Logout</v-btn>
     </v-toolbar>    
 
     <v-content>
       <nuxt-child />
     </v-content>
 
-    <v-footer
-      :fixed="fixed"
+    <v-footer      
       app
+      flat
     >
-      <span>&copy; 2017</span>
+      <span>&copy; Kevin Enario</span>
     </v-footer>
   </v-app>
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        clipped: false,
-        drawer: true,
-        fixed: false,
-        items: [
-          { icon: 'apps', title: 'Welcome', to: '/' },
-          { icon: 'bubble_chart', title: 'Inspire', to: '/inspire' }
-        ],
-        miniVariant: false,
-        right: true,
-        rightDrawer: false,
-        title: 'Vuetify.js'
+  import store from '@/store'    
+
+  export default {    
+    data: () => ({
+      value: true
+    }),
+    computed: {
+      user () {
+        return this.$store.getters.activeUser
+      }
+    },
+    watch: {
+      user (value) {  // handles login button visibility on login
+        if (value) {
+          this.value = false
+        }
+      }
+    },
+    created() {
+      if (this.$store.getters.authToken) {  // handles login button visibility on reload
+       this.value  = false 
       }
     },
     methods: {
+      toLandingPage() {
+        this.$router.push('/')        
+      },
+      toCollectionPage() {
+        this.$router.push('/u/collection')        
+      },
+      toSearchPage() {
+        this.$router.push('/u/search')        
+      },
+      toRegisterPage() {
+        this.$router.push('/home/register')
+      },
+      toLoginPage() {
+        this.$router.push('/home/login')
+      },
       async handleLogout() {
         await this.$store.dispatch('logout')
         .then(() => {          
