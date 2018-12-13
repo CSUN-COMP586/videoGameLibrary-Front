@@ -1,55 +1,64 @@
 <template>
-  <v-layout
-    column
-    justify-center
-    align-center>
-    <v-flex
-      xs12
-      sm8
-      md6>
-      <div class="text-xs-center">
-        <logo/>
-        <vuetify-logo/>
-      </div>
-      <v-card>
-        <v-card-title class="headline">Welcome to the Vuetify + Nuxt.js template</v-card-title>
-        <v-card-text>
-          <p>Vuetify is a progressive Material Design component framework for Vue.js. It was designed to empower developers to create amazing applications.</p>
-          <p>For more information on Vuetify, check out the <a
-            href="https://vuetifyjs.com"
-            target="_blank">documentation</a>.</p>
-          <p>If you have questions, please join the official <a
-            href="https://chat.vuetifyjs.com/"
-            target="_blank"
-            title="chat">discord</a>.</p>
-          <p>Find a bug? Report it on the github <a
-            href="https://github.com/vuetifyjs/vuetify/issues"
-            target="_blank"
-            title="contribute">issue board</a>.</p>
-          <p>Thank you for developing with Vuetify and I look forward to bringing more exciting features in the future.</p>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
-          </div>
-          <hr class="my-3">
-          <a
-            href="https://nuxtjs.org/"
-            target="_blank">Nuxt Documentation</a>
-          <br>
-          <a
-            href="https://github.com/nuxt/nuxt.js"
-            target="_blank">Nuxt GitHub</a>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer/>
-          <v-btn
-            color="primary"
-            flat
-            nuxt
-            to="/inspire">Continue</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-flex>
-  </v-layout>
+  <v-container fluid>
+    <v-layout
+      column
+      justify-center
+      align-center>
+      <v-flex
+        xs12
+        sm8
+        md6>
+        <div class="text-xs-center">
+          <logo/>
+          <vuetify-logo/>
+        </div>
+        <v-card>
+          <v-card-title><h3>Video Game Collection</h3></v-card-title>
+          <v-card-text>
+            Welcome to Kevin Enario's CSUN-COMP586 final project.<br> 
+            The goal of this class was to teach Object Oriented Software Development<br>
+            principles as well as develop an application using those principles.<br>          
+          </v-card-text>                      
+
+          <v-card-title><h3>Requirements:</h3></v-card-title>
+          <v-card-text>
+            Model-View-Controller architecture<br> 
+            Object Relational Mapping<br>
+            Dependency Injection<br>
+            Single Page Application<br>
+            Authentication with JSON Web Token<br>
+          </v-card-text>
+
+          <v-card-title><h3>Technology Used:</h3></v-card-title>
+          <v-card-text>
+            Front end:<br> 
+            Nuxt (Scaffolding), Vue, Vue-Router, Vuex (state),<br> 
+            Firebase (auth), Axios (API)<br>
+            <br>
+            Back end:<br>
+            Go, PostgresSQL, GORM (ORM), Gorilla/Mux (Routing)<br>
+            net/http (API), Firebase (auth)<br>            
+          </v-card-text>
+
+          <v-card-title><h3>Instructions: </h3></v-card-title>
+          <v-card-text>
+            1.  Login<br>
+            2.  You should be redirected to the collection page.<br>
+            3.  You can use the buttons on the navbar to navigate.<br>
+            4.  You can search for a video game on the search page.<br>
+            5.  Clicking add will add the game to your collection.<br>            
+          </v-card-text>
+
+          <v-card-title><h3>Notes:</h3></v-card-title>
+          <v-card-text>
+            More information regarding how this web application was<br>
+            built can be found at repository below:<br>
+            <a class="link" href="https://github.com/CSUN-COMP586">Github Repository</a>            
+          </v-card-text>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
@@ -63,3 +72,13 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .link {
+    color: white;
+
+  }
+  .link:hover {
+    color: lightblue;
+  }
+</style>

@@ -4,8 +4,14 @@
       <v-list-tile-title class="test">{{ name }}</v-list-tile-title>  
     </v-list-tile-content>    
     <v-list-tile-action>
-      <v-btn left small flat @click.native="onAdd">Add</v-btn>
-    </v-list-tile-action>    
+      <v-btn left small flat color="teal accent-4" @click.native="onAdd">Add</v-btn>
+    </v-list-tile-action>
+    
+    <v-dialog v-model="dialog" max-width="300px">
+      <v-card>
+        <v-card-text>Game added to collection.</v-card-text>
+      </v-card>
+    </v-dialog>
   </v-list-tile>
 </template>
 
@@ -16,13 +22,11 @@
       name: String,
       summary: String,
       cover: Object            
-    },
-    // data: () => {
-    //   token: null
-    // },
+    },    
     data: function() {
       return {
-        token: null
+        token: null,
+        dialog: false
       }
     },
     methods: {
@@ -53,6 +57,7 @@
           this.token = this.$store.getters.authToken
         }
         this.addGameToServer()
+        this.dialog = true
       }
     }
   }
