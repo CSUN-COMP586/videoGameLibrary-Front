@@ -42,6 +42,10 @@
 
           <v-card-title><h3>Instructions: </h3></v-card-title>
           <v-card-text>
+            Registration has not been fleshed out.  If you register,<br>
+            you don't need email confirmation so test emails can be used.<br>
+            After registration click logout and log back in.<br>
+            <br>
             1.  Login<br>
             2.  You should be redirected to the collection page.<br>
             3.  You can use the buttons on the navbar to navigate.<br>

@@ -39,6 +39,7 @@
 <script>
   import store from '@/store'    
   import addGame from '@/components/addGame'
+  import env from '@/middleware/env'
 
   export default {
     name: 'Home',
@@ -55,7 +56,7 @@
       async searchForGame() {  // search for a video game using IGDB api
         await this.$axios ({
           method: 'get',
-          url: 'http://localhost:8080/search/game/' + this.cleanedQuery,  // testing
+          url: env.searchGamesAPI + this.cleanedQuery,  // testing
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + this.token
