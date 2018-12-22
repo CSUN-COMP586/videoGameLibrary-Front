@@ -51,6 +51,8 @@
 </template>
 
 <script>
+  import env from '@/middleware/env'
+
   export default {
     name: 'Collection',
     data: () => ({
@@ -61,7 +63,7 @@
       async getCollectionOfGames() {
         await this.$axios ({
           method: 'get',
-          url: 'http://localhost:8080/game/get',
+          url: env.getGamesAPI,
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + this.token

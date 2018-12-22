@@ -3,6 +3,7 @@
 import Vuex from 'vuex'
 import VuexPersist from 'vuex-persist'
 import { auth } from '@/services/fireinit'
+import env from '@/middleware/env'
 
 // declare vuex-persist plugin
 const vuexLocalStorage = new VuexPersist({
@@ -51,7 +52,7 @@ const store = () => new Vuex.Store({
     registerOnServer ({commit}, registration) {
       this.$axios({
         method: 'post',
-        url: 'http://localhost:8080/account/register',
+        url: env.serverRegistrationAPI,
         headers: {'Content-Type': 'application/json'},
         data: registration
       })
@@ -74,7 +75,7 @@ const store = () => new Vuex.Store({
     loginToServer ({commit, state, dispatch}, credentials) {
       this.$axios({
         method: 'post',
-        url: 'http://localhost:8080/account/login',
+        url: env.serverLoginAPI,
         headers: {
           'Content-type': 'application/json',
           'Authorization': 'Bearer ' + state.token
