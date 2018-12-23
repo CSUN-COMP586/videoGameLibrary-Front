@@ -63,7 +63,7 @@
             }
         }).then(res => {          
           this.searchResults = res.data   
-          console.log(this.searchResults)       
+          console.log(res.data)       
         }).catch(err => {
           console.log(err);
         })
