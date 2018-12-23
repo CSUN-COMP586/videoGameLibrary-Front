@@ -62,7 +62,8 @@
             'Authorization': 'Bearer ' + this.token
             }
         }).then(res => {          
-          this.searchResults = res.data          
+          this.searchResults = res.data   
+          console.log(this.searchResults)       
         }).catch(err => {
           console.log(err);
         })

@@ -33,7 +33,7 @@
       async addGameToServer() {
         await this.$axios ({
           method: 'post',
-          url: 'http://localhost:8080/game/add',
+          url: env.addGamesAPI,
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + this.token
