@@ -16,6 +16,8 @@
 </template>
 
 <script>
+  import env from '@middleware/env.js'
+
   export default {    
     props: {
       id: Number,
