@@ -1,6 +1,6 @@
 export default function({ store, redirect, route }) {  
-  store.state.user != null && route.path == '/home/login' ? redirect('/u/collection') : console.log(route.path)
-  store.state.user == null && isAuthRoute(route) ? redirect('/home/login') : console.log(route.path)
+  store.state.user != null && route.path == '/home/login' ? redirect('/u/collection') : route.path
+  store.state.user == null && isAuthRoute(route) ? redirect('/home/login') : route.path
 }
 
 function isAuthRoute(route) {  
