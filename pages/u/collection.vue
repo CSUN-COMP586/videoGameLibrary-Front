@@ -81,7 +81,7 @@
       if (this.$store.getters.authToken) {
         this.token = this.$store.getters.authToken
       }
-      this.getCollectionOfGames()
+      this.getCollectionOfGames()      
     }
   }
 </script>

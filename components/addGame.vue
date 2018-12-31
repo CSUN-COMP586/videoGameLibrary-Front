@@ -16,7 +16,7 @@
 </template>
 
 <script>
-  import env from '@middleware/env.js'
+  import env from '@/middleware/env'
 
   export default {    
     props: {

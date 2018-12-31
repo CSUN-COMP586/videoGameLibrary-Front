@@ -92,7 +92,8 @@ const store = () => new Vuex.Store({
       auth.signOut()
         .then(() => {
           commit('setUser', null)
-          commit('setAuthToken', null)          
+          commit('setAuthToken', null)  
+          console.log(this.$router.push('/home/login'))        
         })        
     }
   }
